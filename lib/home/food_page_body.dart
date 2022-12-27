@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
+
 import 'package:flutter/src/widgets/framework.dart';
 
 class FoodPageBody extends StatefulWidget {
@@ -55,16 +56,120 @@ class FoodPageBodyState extends State<FoodPageBody> {
               }),
         ),
         new DotsIndicator(
-          dotsCount: 5,
-          position: _currPageValue,
-          decorator: DotsDecorator(
-            activeColor: AppColors.mainColor,
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
+            dotsCount: 5,
+            position: _currPageValue,
+            decorator: DotsDecorator(
+              activeColor: AppColors.mainColor,
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            )),
+// Popular text
+        SizedBox(height: Dimensions.height20),
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width30),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              BigText(text: "Popular"),
+              SizedBox(
+                width: Dimensions.width10,
+              ),
+              Container(
+                  margin: const EdgeInsets.only(bottom: 3),
+                  child: BigText(
+                    text: ".",
+                    color: Colors.black26,
+                  )),
+              SizedBox(
+                width: Dimensions.width10,
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 2),
+                child: SmallText(text: "Food pairing"),
+              )
+            ],
           ),
-        )
+        ),
+        ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            //physics: AlwaysScrollableScrollPhysics(),
+            //parent container of a listviewbuilder should have a height If we remove that it will give an error
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                    bottom: Dimensions.height10,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20),
+                child: Row(
+                  children: [
+                    Container(
+                      width: Dimensions.listViewImgSize,
+                      height: Dimensions.listViewImgSize,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius20),
+                          color: Colors.white38,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/Images/pulao.jpg"))),
+                    ),
+                    //Text Section
+                    Expanded(
+                      child: Container(
+                        height: Dimensions.listViewTextContSize,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.radius20),
+                              bottomRight: Radius.circular(Dimensions.radius20),
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              right: Dimensions.height10,
+                              left: Dimensions.width10),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BigText(text: "Nutrituous fruit meal in china"),
+                                SizedBox(height: Dimensions.height10),
+                                SmallText(text: "With chinese Characteristics"),
+                                SizedBox(height: Dimensions.height10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconAndTextWidget(
+                                      icon: Icons.circle_sharp,
+                                      text: "Normal",
+                                      iconColor: AppColors.iconColor1,
+                                      space: 0,
+                                    ),
+                                    IconAndTextWidget(
+                                      icon: Icons.location_on,
+                                      text: "1.7Km",
+                                      iconColor: AppColors.mainColor,
+                                      space: 0,
+                                    ),
+                                    IconAndTextWidget(
+                                      icon: Icons.access_time_rounded,
+                                      text: "32min",
+                                      iconColor: AppColors.iconsColor2,
+                                      space: 0,
+                                    )
+                                  ],
+                                )
+                              ]),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            })
       ],
     );
   }
@@ -101,6 +206,7 @@ class FoodPageBodyState extends State<FoodPageBody> {
     return Transform(
       transform: matrix,
       child: Stack(children: [
+// Dish Photo
         Container(
             height: Dimensions.pageViewContainer,
             margin: EdgeInsets.only(
@@ -133,6 +239,7 @@ class FoodPageBodyState extends State<FoodPageBody> {
               child: Container(
                 padding: EdgeInsets.only(
                     left: Dimensions.height15, right: 15, top: 15),
+// Dish Name
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -175,6 +282,7 @@ class FoodPageBodyState extends State<FoodPageBody> {
                       SizedBox(
                         height: Dimensions.height20,
                       ),
+// Icons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -188,7 +296,7 @@ class FoodPageBodyState extends State<FoodPageBody> {
                               iconColor: AppColors.mainColor),
                           IconAndTextWidget(
                               icon: Icons.access_time_rounded,
-                              text: "Normal",
+                              text: "32min",
                               iconColor: AppColors.iconsColor2)
                         ],
                       )

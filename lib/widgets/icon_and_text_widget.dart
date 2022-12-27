@@ -8,14 +8,15 @@ import 'package:flutter/src/widgets/framework.dart';
 class IconAndTextWidget extends StatelessWidget {
   final IconData icon;
   final String text;
-
+  final double space;
   final Color iconColor;
 
   const IconAndTextWidget(
       {super.key,
       required this.icon,
       required this.text,
-      required this.iconColor});
+      required this.iconColor,
+      this.space = 5});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,7 @@ class IconAndTextWidget extends StatelessWidget {
           color: iconColor,
           size: Dimensions.iconsize24,
         ),
-        SizedBox(
-          width: 5,
-        ),
+        SizedBox(width: space),
         SmallText(
           text: text,
         )

@@ -20,8 +20,8 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
-    print(
-        "Current heigaht is " + MediaQuery.of(context).size.height.toString());
+    print("Current height is " + MediaQuery.of(context).size.height.toString());
+    print("Current width is " + MediaQuery.of(context).size.width.toString());
     return Scaffold(
       body: Column(
         children: [
@@ -30,6 +30,8 @@ class _MainFoodPageState extends State<MainFoodPage> {
               margin: EdgeInsets.only(top: Dimensions.height50),
               padding: EdgeInsets.only(
                   left: Dimensions.width15, right: Dimensions.width15),
+
+// App Bar
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -70,7 +72,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
           SizedBox(
             height: 10,
           ),
-          FoodPageBody()
+          Expanded(child: SingleChildScrollView(child: FoodPageBody()))
         ],
       ),
     );

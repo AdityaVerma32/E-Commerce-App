@@ -8,7 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 class BigText extends StatelessWidget {
   Color? color;
   final String text;
-  double size = 0;
+  double size;
   TextOverflow overFlow;
 
   BigText(

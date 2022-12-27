@@ -30,4 +30,8 @@ class Dimensions {
 
   static double iconsize24 =
       screenHeight / 33.45; // 803/24 24 is the default size of icon
+
+  // List View size
+  static double listViewTextContSize = screenWidth / 3.92; // 392/100
+  static double listViewImgSize = screenWidth / 3.26; // 392/120
 }
