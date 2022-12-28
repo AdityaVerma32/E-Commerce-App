@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:ecart/home/food_page_body.dart';
+import 'package:ecart/Pages/home/food_page_body.dart';
 import 'package:ecart/utils/app_colors.dart';
 import 'package:ecart/utils/dimensions.dart';
 import 'package:ecart/widgets/big_text.dart';
