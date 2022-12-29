@@ -8,14 +8,16 @@ class AppIcon extends StatelessWidget {
   final IconData icon;
   final Color BackGroundcolor;
   final Color iconColor;
+  final double iconSize;
   final double size;
 
   const AppIcon(
       {super.key,
       required this.icon,
-      this.BackGroundcolor = const Color(0xFFfc4e4),
+      this.BackGroundcolor = const Color(0xFFfcf4e4),
       this.iconColor = const Color(0xFF756d54),
-      this.size = 40});
+      this.size = 40,
+      this.iconSize = 16});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AppIcon extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(size / 2),
           color: BackGroundcolor),
-      child: Icon(icon, color: iconColor, size: Dimensions.iconsize16),
+      child: Icon(icon, color: iconColor, size: iconSize),
     );
   }
 }
