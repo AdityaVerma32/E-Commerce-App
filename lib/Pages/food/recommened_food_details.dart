@@ -1,4 +1,8 @@
+import 'package:ecart/Controllers/recommended_product_controller.dart';
+import 'package:ecart/MOdels/products_model.dart';
+import 'package:ecart/Routes/route_helper.dart';
 import 'package:ecart/utils/app_colors.dart';
+import 'package:ecart/utils/app_constants.dart';
 import 'package:ecart/utils/dimensions.dart';
 import 'package:ecart/widgets/app_icon.dart';
 import 'package:ecart/widgets/big_text.dart';
@@ -6,22 +10,32 @@ import 'package:ecart/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class RecommenedFoodDetails extends StatelessWidget {
-  const RecommenedFoodDetails({super.key});
+  int pageId;
+
+  RecommenedFoodDetails({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
+
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 70,
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppIcon(icon: Icons.arrow_back_ios),
-                AppIcon(icon: Icons.shopping_cart_outlined)
-              ]),
+          title:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            GestureDetector(
+                onTap: () {
+                  Get.toNamed(RouteHelper.getInitial());
+                },
+                child: AppIcon(icon: Icons.arrow_back_ios)),
+            AppIcon(icon: Icons.shopping_cart_outlined)
+          ]),
           bottom: PreferredSize(
             // this child took a part of image under it.
             child: Container(
@@ -32,7 +46,7 @@ class RecommenedFoodDetails extends StatelessWidget {
                       topRight: Radius.circular(Dimensions.radius20))),
               child: Center(
                   child: BigText(
-                text: "Silver App Bar",
+                text: product.name!,
                 size: Dimensions.font26,
               )),
               width: double.maxFinite,
@@ -45,8 +59,10 @@ class RecommenedFoodDetails extends StatelessWidget {
           expandedHeight: 300,
           backgroundColor: AppColors.yellowColor,
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset(
-              "assets/Images/kheer.jpg",
+            background: Image.network(
+              AppConstants.BASE_URL +
+                  AppConstants.UPLOAD_CONSTANT +
+                  product.img!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             ),
@@ -58,9 +74,7 @@ class RecommenedFoodDetails extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(
                   left: Dimensions.width20, right: Dimensions.width20),
-              child: ExpandableTextWidget(
-                  text:
-                      "Kheer, also known as payasam, is a sweet dish and a type of wet pudding popular in the Indian subcontinent, usually made by boiling milk, sugar or jaggery, and rice, although rice may be substituted with one of the following: daals, bulgur wheat, millet, tapioca, vermicelli, or sweet corn. It is typically flavoured with desiccated coconut, cardamom, raisins, saffron, cashews, pistachios, almonds, or other dry fruits and nuts, and recently pseudograins are also gaining popularity. It is typically served as a dessert.[1][2]m Kheer, also known as payasam, is a sweet dish and a type of wet pudding popular in the Indian subcontinent, usually made by boiling milk, sugar or jaggery, and rice, although rice may be substituted with one of the following: daals, bulgur wheat, millet, tapioca, vermicelli, or sweet corn. It is typically flavoured with desiccated coconut, cardamom, raisins, saffron, cashews, pistachios, almonds, or other dry fruits and nuts, and recently pseudograins are also gaining popularity. It is typically served as a dessert.[1][2]m Kheer, also known as payasam, is a sweet dish and a type of wet pudding popular in the Indian subcontinent, usually made by boiling milk, sugar or jaggery, and rice, although rice may be substituted with one of the following: daals, bulgur wheat, millet, tapioca, vermicelli, or sweet corn. It is typically flavoured with desiccated coconut, cardamom, raisins, saffron, cashews, pistachios, almonds, or other dry fruits and nuts, and recently pseudograins are also gaining popularity. It is typically served as a dessert.[1][2]m Kheer, also known as payasam, is a sweet dish and a type of wet pudding popular in the Indian subcontinent, usually made by boiling milk, sugar or jaggery, and rice, although rice may be substituted with one of the following: daals, bulgur wheat, millet, tapioca, vermicelli, or sweet corn. It is typically flavoured with desiccated coconut, cardamom, raisins, saffron, cashews, pistachios, almonds, or other dry fruits and nuts, and recently pseudograins are also gaining popularity. It is typically served as a dessert.[1][2]m Kheer, also known as payasam, is a sweet dish and a type of wet pudding popular in the Indian subcontinent, usually made by boiling milk, sugar or jaggery, and rice, although rice may be substituted with one of the following: daals, bulgur wheat, millet, tapioca, vermicelli, or sweet corn. It is typically flavoured with desiccated coconut, cardamom, raisins, saffron, cashews, pistachios, almonds, or other dry fruits and nuts, and recently pseudograins are also gaining popularity. It is typically served as a dessert.[1][2]m"),
+              child: ExpandableTextWidget(text: product.description!),
             )
           ],
         ))
@@ -82,7 +96,7 @@ class RecommenedFoodDetails extends StatelessWidget {
                 iconSize: Dimensions.iconsize24,
               ),
               BigText(
-                text: "\$12.88 " + " X " + " 8",
+                text: "\$ ${product.price!} " + " X " + " 0",
                 color: AppColors.mainBlackcolor,
                 size: Dimensions.font26,
               ),

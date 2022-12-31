@@ -1,3 +1,6 @@
+import 'package:ecart/Controllers/popular_product_controller.dart';
+import 'package:ecart/MOdels/products_model.dart';
+import 'package:ecart/utils/app_constants.dart';
 import 'package:ecart/utils/dimensions.dart';
 import 'package:ecart/widgets/app_column.dart';
 import 'package:ecart/widgets/app_icon.dart';
@@ -5,6 +8,7 @@ import 'package:ecart/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 import '../../utils/app_colors.dart';
 import '../../widgets/big_text.dart';
@@ -12,10 +16,16 @@ import '../../widgets/icon_and_text_widget.dart';
 import '../../widgets/small_text.dart';
 
 class PopularFoodDetails extends StatelessWidget {
-  const PopularFoodDetails({super.key});
+  int pageId;
+  PopularFoodDetails({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    //print("page Id is " + pageId.toString());
+    //print("product name is " + product.name.toString());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -30,7 +40,9 @@ class PopularFoodDetails extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/Images/kheer.jpg")),
+                        image: NetworkImage(AppConstants.BASE_URL +
+                            AppConstants.UPLOAD_CONSTANT +
+                            product.img)),
                   ))),
           //icon widget
           Positioned(
@@ -65,7 +77,7 @@ class PopularFoodDetails extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppColumn(text: "Kheer"),
+                      AppColumn(text: product.name),
                       SizedBox(
                         height: Dimensions.height20,
                       ),
@@ -73,10 +85,8 @@ class PopularFoodDetails extends StatelessWidget {
                       SizedBox(height: Dimensions.height10),
                       Expanded(
                         child: SingleChildScrollView(
-                          child: ExpandableTextWidget(
-                              text:
-                                  "Kheer, also known as payasam, is a sweet dish and a type of wet pudding popular in the Indian subcontinent, usually made by boiling milk, sugar or jaggery, and rice, although rice may be substituted with one of the following: daals, bulgur wheat, millet, tapioca, vermicelli, or sweet corn. It is typically flavoured with desiccated coconut, cardamom, raisins, saffron, cashews, pistachios, almonds, or other dry fruits and nuts, and recently pseudograins are also gaining popularity. It is typically served as a dessert.[1][2]m"),
-                        ),
+                            child: ExpandableTextWidget(
+                                text: product.description!)),
                       )
                     ],
                   )))
@@ -121,7 +131,9 @@ class PopularFoodDetails extends StatelessWidget {
                 bottom: Dimensions.height15,
                 left: Dimensions.width15,
                 right: Dimensions.width15),
-            child: BigText(text: "\$10 | Add to Cart", color: Colors.white),
+            child: BigText(
+                text: "\$ ${product.price!} | Add to Cart",
+                color: Colors.white),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor),

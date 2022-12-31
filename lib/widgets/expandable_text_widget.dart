@@ -1,5 +1,7 @@
 import 'package:ecart/utils/app_colors.dart';
+import 'package:ecart/utils/app_constants.dart';
 import 'package:ecart/utils/dimensions.dart';
+import 'package:ecart/widgets/app_icon.dart';
 import 'package:ecart/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,14 +42,18 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.isEmpty
-          ? SmallText(text: firstHalf, color: AppColors.pargColor)
+          ? SmallText(
+              text: firstHalf,
+              color: AppColors.pargColor,
+              size: Dimensions.iconsize16,
+            )
           : Column(
               children: [
                 SmallText(
                   text: hiddenText
                       ? (firstHalf + "...")
                       : (firstHalf + secondHalf),
-                  size: Dimensions.iconsize14,
+                  size: Dimensions.iconsize16,
                   color: AppColors.pargColor,
                   height: 1.4,
                 ),
