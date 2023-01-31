@@ -21,10 +21,10 @@ class RecommendedProductController extends GetxController {
     //most of the api/http clients return status code 200 if the call isi successfull
     if (response.statusCode == 200) {
       _recommendedProductList = [];
-      print("Got Product Recommended");
+      //print("Got Product Recommended");
       //here we will pass a model which will convert json data to list
       _recommendedProductList.addAll(Product.fromJson(response.body).product);
-      print(_recommendedProductList);
+      //print(_recommendedProductList);
       _isLoaded = true;
       update();
     } else {
