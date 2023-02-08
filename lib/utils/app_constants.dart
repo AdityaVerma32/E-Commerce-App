@@ -7,4 +7,5 @@ class AppConstants {
   static const String APP_TOKEN = "AVToken";
   static const String UPLOAD_CONSTANT = "/uploads/";
   static const String CART_LIST = "cart-list";
+  static const String CART_HISTORY_LIST = "cart-history-list";
 }
