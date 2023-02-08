@@ -2,6 +2,7 @@ import 'package:ecart/Controllers/cart_controller.dart';
 import 'package:ecart/Controllers/popular_product_controller.dart';
 import 'package:ecart/Controllers/recommended_product_controller.dart';
 import 'package:ecart/MOdels/products_model.dart';
+import 'package:ecart/Pages/cart/cart_page.dart';
 import 'package:ecart/Routes/route_helper.dart';
 import 'package:ecart/utils/app_colors.dart';
 import 'package:ecart/utils/app_constants.dart';
@@ -15,9 +16,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class RecommenedFoodDetails extends StatelessWidget {
-  int pageId;
-
-  RecommenedFoodDetails({super.key, required this.pageId});
+  final int pageId;
+  final String page;
+  RecommenedFoodDetails({super.key, required this.pageId, required this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -34,39 +35,49 @@ class RecommenedFoodDetails extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             GestureDetector(
                 onTap: () {
-                  Get.toNamed(RouteHelper.getInitial());
+                  if (page == "cartpage") {
+                    Get.toNamed(RouteHelper.getcartPage());
+                  } else {
+                    Get.toNamed(RouteHelper.getInitial());
+                  }
                 },
                 child: AppIcon(icon: Icons.arrow_back_ios)),
             GetBuilder<PopularProductController>(builder: (controller) {
-              return Stack(
-                children: [
-                  AppIcon(icon: Icons.shopping_cart_outlined),
-                  Get.find<PopularProductController>().totalItems >= 1
-                      ? Positioned(
-                          right: 0,
-                          top: 0,
-                          child: AppIcon(
-                            icon: Icons.circle,
-                            size: 20,
-                            iconColor: Colors.transparent,
-                            BackGroundcolor: AppColors.mainColor,
-                          ),
-                        )
-                      : Container(),
-                  Get.find<PopularProductController>().totalItems >= 1
-                      ? Positioned(
-                          right: 6,
-                          top: 2,
-                          child: BigText(
-                            text: Get.find<PopularProductController>()
-                                .totalItems
-                                .toString(),
-                            size: 12,
-                            color: Colors.white,
-                          ),
-                        )
-                      : Container()
-                ],
+              return GestureDetector(
+                onTap: () {
+                  if (controller.totalItems >= 1)
+                    Get.toNamed(RouteHelper.getcartPage());
+                },
+                child: Stack(
+                  children: [
+                    AppIcon(icon: Icons.shopping_cart_outlined),
+                    controller.totalItems >= 1
+                        ? Positioned(
+                            right: 0,
+                            top: 0,
+                            child: AppIcon(
+                              icon: Icons.circle,
+                              size: 20,
+                              iconColor: Colors.transparent,
+                              BackGroundcolor: AppColors.mainColor,
+                            ),
+                          )
+                        : Container(),
+                    Get.find<PopularProductController>().totalItems >= 1
+                        ? Positioned(
+                            right: 3,
+                            top: 2,
+                            child: BigText(
+                              text: Get.find<PopularProductController>()
+                                  .totalItems
+                                  .toString(),
+                              size: 12,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Container()
+                  ],
+                ),
               );
             })
           ]),

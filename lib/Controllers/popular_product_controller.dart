@@ -1,4 +1,5 @@
 import 'package:ecart/Controllers/cart_controller.dart';
+import 'package:ecart/MOdels/cart_model.dart';
 import 'package:ecart/MOdels/products_model.dart';
 import 'package:ecart/data/Api/api_client.dart';
 import 'package:ecart/data/Repositories/popular_product_repo.dart';
@@ -51,6 +52,10 @@ class PopularProductController extends GetxController {
     if ((_cartItems + quantity) < 0) {
       Get.snackbar("Item Count", "You can't reduce more !",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      if (_cartItems > 0) {
+        _quantity = -_cartItems;
+        return _quantity;
+      }
       return 0;
     } else if ((_cartItems + quantity) > 20) {
       return 20;
@@ -65,15 +70,11 @@ class PopularProductController extends GetxController {
     _cart = cart;
 
     var exist = false;
-
     exist = _cart.existInCart(product);
-
     print("Exists or Not : " + exist.toString());
-
     if (exist) {
       _cartItems = cart.getQuantity(product);
     }
-
     print("Quantity in the cart is " + _cartItems.toString());
     // if exist tehn get th.exe item
     // get from storage _inCartIt ems=3
@@ -97,5 +98,9 @@ class PopularProductController extends GetxController {
 
   int get totalItems {
     return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems {
+    return _cart.getItems;
   }
 }
