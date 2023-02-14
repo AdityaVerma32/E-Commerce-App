@@ -1,5 +1,6 @@
 import 'package:ecart/Controllers/cart_controller.dart';
 import 'package:ecart/Controllers/popular_product_controller.dart';
+import 'package:ecart/Pages/Auth/sign_up_page.dart';
 import 'package:ecart/Pages/Splash/splash_screen.dart';
 import 'package:ecart/Pages/cart/cart_page.dart';
 import 'package:ecart/Pages/food/popular_food_details.dart';
@@ -9,6 +10,7 @@ import 'package:ecart/Routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Controllers/recommended_product_controller.dart';
+import 'Pages/Auth/sign_in_page.dart';
 import 'helper/dependencies.dart' as dep;
 
 Future<void> main() async {
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           //home: SplashScreen(),
-
+          home: SignInPage(),
           initialRoute: RouteHelper.getSplashPage(),
           getPages: RouteHelper.routes,
         );

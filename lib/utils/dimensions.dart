@@ -27,6 +27,7 @@ class Dimensions {
 // font sizes
   static double font20 = screenHeight / 40.15;
   static double font26 = screenHeight / 30.88;
+  static double font16 = screenHeight / 50.18;
 
 //radius sizes
 

@@ -9,6 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../Controllers/popular_product_controller.dart';
+import '../../Controllers/recommended_product_controller.dart';
 
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({super.key});
@@ -18,63 +23,68 @@ class MainFoodPage extends StatefulWidget {
 }
 
 class _MainFoodPageState extends State<MainFoodPage> {
+  Future<void> _loadResource() async {
+    await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<RecommendedProductController>().getRecommendedProductList();
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Current height is " + MediaQuery.of(context).size.height.toString());
     print("Current width is " + MediaQuery.of(context).size.width.toString());
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            child: Container(
-              margin: EdgeInsets.only(top: Dimensions.height50),
-              padding: EdgeInsets.only(
-                  left: Dimensions.width15, right: Dimensions.width15),
+    return RefreshIndicator(
+        child: Column(
+          children: [
+            Container(
+              child: Container(
+                margin: EdgeInsets.only(top: Dimensions.height50),
+                padding: EdgeInsets.only(
+                    left: Dimensions.width15, right: Dimensions.width15),
 
 // App Bar
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      BigText(
-                        text: "Bangladesh",
-                        color: AppColors.mainColor,
-                      ),
-                      Row(
-                        children: [
-                          SmallText(
-                            text: "city",
-                            color: Colors.black54,
-                          ),
-                          Icon(Icons.arrow_drop_down)
-                        ],
-                      )
-                    ],
-                  ),
-                  Container(
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: Dimensions.iconsize24,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        BigText(
+                          text: "Bangladesh",
+                          color: AppColors.mainColor,
+                        ),
+                        Row(
+                          children: [
+                            SmallText(
+                              text: "city",
+                              color: Colors.black54,
+                            ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        )
+                      ],
                     ),
-                    width: Dimensions.height45,
-                    height: Dimensions.height45,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius15),
-                        color: AppColors.mainColor),
-                  )
-                ],
+                    Container(
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: Dimensions.iconsize24,
+                      ),
+                      width: Dimensions.height45,
+                      height: Dimensions.height45,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius15),
+                          color: AppColors.mainColor),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Expanded(child: SingleChildScrollView(child: FoodPageBody()))
-        ],
-      ),
-    );
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(child: SingleChildScrollView(child: FoodPageBody()))
+          ],
+        ),
+        onRefresh: _loadResource);
   }
 }

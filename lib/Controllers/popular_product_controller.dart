@@ -36,7 +36,9 @@ class PopularProductController extends GetxController {
       //print(_popularProductList);
       _isLoaded = true;
       update();
-    } else {}
+    } else {
+      print("Could not fetch the Data");
+    }
   }
 
   void setQuantity(bool isIncreament) {

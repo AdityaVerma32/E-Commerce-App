@@ -1,3 +1,5 @@
+import 'package:ecart/Pages/Auth/sign_up_page.dart';
+import 'package:ecart/Pages/account/account_page.dart';
 import 'package:ecart/Pages/cart/cart_history.dart';
 import 'package:ecart/Pages/home/main_food_page.dart';
 import 'package:ecart/utils/app_colors.dart';
@@ -17,12 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  List pages = [
-    MainFoodPage(),
-    Container(child: Center(child: Text("Next Page"))),
-    CartHistory(),
-    Container(child: Center(child: Text("Next next next Page")))
-  ];
+  List pages = [MainFoodPage(), SignUpPage(), CartHistory(), AccountPage()];
 
   void onTapNav(int index) {
     setState(() {
