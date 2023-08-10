@@ -5,6 +5,8 @@ import 'package:ecart/Pages/home/main_food_page.dart';
 import 'package:ecart/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../Auth/sign_in_page.dart';
 //import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  List pages = [MainFoodPage(), SignUpPage(), CartHistory(), AccountPage()];
+  List pages = [MainFoodPage(), SignInPage(), CartHistory(), AccountPage()];
 
   void onTapNav(int index) {
     setState(() {

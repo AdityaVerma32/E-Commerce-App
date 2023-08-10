@@ -19,6 +19,27 @@ class Apiclient extends GetConnect implements GetxService {
       Response response = await get(uri);
       return response;
     } catch (e) {
+      print("Could not fetch Data");
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  void updateHeader(String token) {
+    _mainHeader = {
+      'Content-type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token'
+    };
+  }
+
+  // When Building Sign In And sign Up pages
+  // Posting User credentials to server
+  Future<Response> postdata(String uri, dynamic body) async {
+    // token variable is used to post data
+    try {
+      Response response = await post(uri, body, headers: _mainHeader);
+      return response;
+    } catch (e) {
+      print(e.toString());
       return Response(statusCode: 1, statusText: e.toString());
     }
   }

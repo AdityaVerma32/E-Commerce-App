@@ -1,3 +1,5 @@
+import 'package:ecart/Base/show_custom_message.dart';
+import 'package:ecart/Controllers/auth_controller.dart';
 import 'package:ecart/utils/app_colors.dart';
 import 'package:ecart/utils/dimensions.dart';
 import 'package:ecart/widgets/app_text_field.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../MOdels/sign_up_model.dart';
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
@@ -19,6 +23,44 @@ class SignUpPage extends StatelessWidget {
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
     var signUpImages = ["Google-Icon.jpg", "Twitter-icon.png", "FB-icon.png"];
+
+    //------------Validation Check on the Entered fields
+    void _registration() {
+      var authController = Get.find<AuthController>();
+
+      String name = nameController.text.trim();
+      String phone = phoneController.text.trim();
+      String email = emailController.text.trim();
+      String password = PasswordController.text.trim();
+
+      if (name.isEmpty) {
+        showcustomSnackBar("Type in your Name", title: "Name");
+      } else if (phone.isEmpty) {
+        showcustomSnackBar("Type in your Phone Number", title: "Phone Number");
+      } else if (email.isEmpty) {
+        showcustomSnackBar("Type in your Email Address",
+            title: "Email Address");
+      } else if (!GetUtils.isEmail(email)) {
+        showcustomSnackBar("Type in your Email Address",
+            title: "Valid Email Address");
+      } else if (password.isEmpty) {
+        showcustomSnackBar("Type in your Password", title: "Password");
+      } else if (password.length < 6) {
+        showcustomSnackBar("Password can not be less than 6 characters",
+            title: "Password");
+      } else {
+        showcustomSnackBar("Well Done!", title: "Perfect");
+        SignUpBody signUpBody = SignUpBody(
+            name: name, email: email, password: password, phone: phone);
+        authController.registraton(SignUpBody).then((status) {
+          if (status.isSuccess) {
+            print("Success registration");
+          } else {
+            showcustomSnackBar(status.message);
+          }
+        });
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -76,17 +118,22 @@ class SignUpPage extends StatelessWidget {
             SizedBox(
               height: Dimensions.height20,
             ),
-            Container(
-              width: Dimensions.screenWidth / 2.5,
-              height: Dimensions.screenHeight / 15,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
-                  color: AppColors.mainColor),
-              child: Center(
-                child: BigText(
-                  text: "Sign Up",
-                  size: Dimensions.font20 + Dimensions.font20 / 4,
-                  color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                _registration();
+              },
+              child: Container(
+                width: Dimensions.screenWidth / 2.5,
+                height: Dimensions.screenHeight / 15,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius30),
+                    color: AppColors.mainColor),
+                child: Center(
+                  child: BigText(
+                    text: "Sign Up",
+                    size: Dimensions.font20 + Dimensions.font20 / 4,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

@@ -51,8 +51,9 @@ class SignInPage extends StatelessWidget {
                   Text(
                     "Hello",
                     style: TextStyle(
+                        fontWeight: FontWeight.bold,
                         fontSize:
-                            Dimensions.font20 * 3 + Dimensions.font20 / 2),
+                            Dimensions.font20 * 2 + Dimensions.font20 / 2),
                   ),
                   Text(
                     "Sign into your Account",
